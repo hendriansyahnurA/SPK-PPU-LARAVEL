@@ -9,22 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('pm_kriteria_nilai', function (Blueprint $table) {
+        Schema::create('label_nilai', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_kriteria');
             $table->string('nama');
             $table->integer('nilai');
-            $table->timestamps();
 
             // ralasi id_krieria ke table kriteria
-            $table->foreign('id_kriteria')->references('id')->on('kriteria')->onDelete('cascade');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('pm_kriteria_nilai');
+        Schema::dropIfExists('label_nilai');
     }
 };

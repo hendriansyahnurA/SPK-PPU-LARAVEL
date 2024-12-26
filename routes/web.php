@@ -7,6 +7,7 @@ use App\Http\Controllers\HasilAkhirController;
 use App\Http\Controllers\KlasifikasiController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\NilaiKriteriaController;
+use App\Http\Controllers\subNilaikriteriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\users\klasifikasiController as UsersKlasifikasiController;
 use Illuminate\Support\Facades\Route;
@@ -63,12 +64,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/kriteria/destroy/{id}', [KriteriaController::class, 'destroy'])->name('admin.kriteria.destroy');
     // Kriteria
 
+    // Sub Nilai
+    Route::get('/admin/subNilai', [subNilaikriteriaController::class, 'index'])->name('admin.subNilai');
+    Route::post('/admin/subNilai/creted', [subNilaikriteriaController::class, 'store'])->name('admin.subNilai.store');
+    Route::put('/admin/subNilai/update/{id}', [subNilaikriteriaController::class, 'update'])->name('admin.subNilai.update');
+    Route::delete('/admin/subNilai/destroy/{id}', [subNilaikriteriaController::class, 'destroy'])->name('admin.subNilai.destroy');
+    // Sub Nilai
+
     // Nilai Kriteria
     Route::get('/admin/nilai', [NilaiKriteriaController::class, 'index'])->name('admin.nilai');
     Route::post('/admin/nilai/creted', [NilaiKriteriaController::class, 'store'])->name('admin.nilai.store');
     Route::put('/admin/nilai/update/{id}', [NilaiKriteriaController::class, 'update'])->name('admin.nilai.update');
     Route::delete('/admin/nilai/destroy/{id}', [NilaiKriteriaController::class, 'destroy'])->name('admin.nilai.destroy');
     // Nilai Kriteria
+
 
     // Penilaian / klasifikasi
     Route::get('/admin/klasifikasi', [KlasifikasiController::class, 'index'])->name('admin.klasifikasi');

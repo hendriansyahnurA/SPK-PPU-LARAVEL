@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kriteria', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->index('id');
             $table->unsignedBigInteger('id_aspek');  // Foreign key to aspek
             $table->string('kriteria');
             $table->string('type');

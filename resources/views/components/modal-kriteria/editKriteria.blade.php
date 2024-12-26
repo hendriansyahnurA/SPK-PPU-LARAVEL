@@ -34,7 +34,7 @@
                             <label for="id_nilai" class="form-label">Nama Target</label>
                             <select class="form-control" name="id_nilai" required>
                                 <option value="" disabled>Pilih Nama Target</option>
-                                @foreach ($nilai_kriteria as $nilai)
+                                @foreach ($label_nilai as $nilai)
                                     <option value="{{ $nilai->id }}"
                                         {{ $nilai->id == $p->id_nilai ? 'selected' : '' }}>
                                         {{ $nilai->nilai }}

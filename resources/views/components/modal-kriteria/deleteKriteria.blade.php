@@ -14,11 +14,11 @@
                     @csrf
                     @method('DELETE') <!-- Gunakan method DELETE untuk penghapusan -->
                     <div class="form-group">
-                        <p class="font-bold">Anda Yakin Menghapus Data Ini ?</p>
+                        <p class="font-bold px-2">Anda Yakin Menghapus Data Ini ?</p>
                         <label for="exampleInputNama{{ $p->id }}" hidden>Aspek Penilaian</label>
                         <input type="text" class="form-control form-control-user"
                             id="exampleInputNama{{ $p->id }}" name="nama" value="{{ $p->aspek_penilaian }}"
-                            placeholder="Nama Lengkap" disabled>
+                            disabled hidden>
                         @error('aspek_penilaian')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

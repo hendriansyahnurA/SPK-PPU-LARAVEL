@@ -54,6 +54,7 @@
                 <h6 class="collapse-header">Data Penilaian :</h6>
                 <a class="collapse-item" href="{{ '/admin/aspek' }}">Data Aspek</a>
                 <a class="collapse-item" href="{{ '/admin/kriteria' }}">Data Kriteria</a>
+                <a class="collapse-item" href="{{ '/admin/subNilai' }}">Pemberian Nilai Kriteria</a>
             </div>
         </div>
     </li>

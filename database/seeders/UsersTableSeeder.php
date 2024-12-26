@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
         // Menambahkan user biasa
         DB::table('users')->insert([
             'name' => 'Regular User',
-            'username' => 'user',
+            'username' => 'evaluator',
             'password' => bcrypt('password'), // Ganti 'password' dengan password yang diinginkan
             'role' => 'user',
             'remember_token' => Str::random(10),

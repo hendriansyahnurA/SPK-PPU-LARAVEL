@@ -28,16 +28,16 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="id_nilai" class="form-label">Nama Target</label>
+                        <label for="id_nilai" class="form-label">Nilai Ketetapan</label>
                         <select class="form-control form-control-user" id="id_nilai" name="id_nilai" required>
-                            <option value="" selected disabled>Pilih Nama Target</option>
-                            @foreach ($nilai_kriteria as $item)
+                            <option value="" selected disabled>Pilih Nilai Ketetapan</option>
+                            @foreach ($label_nilai as $item)
                                 <option value="{{ $item->id }}">{{ $item->nilai }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputType">Type</label>
+                        <label for="exampleInputType">Type Core & Secondary</label>
                         <select class="form-control form-control-user" name="type" id="exampleInputType"
                             placeholder="Masukkan Core & Secondary" required>
                             <option value="" selected disabled>Pilih Type Nilai</option>

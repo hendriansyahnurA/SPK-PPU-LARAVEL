@@ -19,11 +19,16 @@ class Kriteria extends Model
     ];
     public function nilai()
     {
-        return $this->belongsTo(Nilai_Kriteria::class, 'id_nilai');
+        return $this->belongsTo(label_nilai::class, 'id_nilai');
     }
 
     public function aspek()
     {
         return $this->belongsTo(Aspek::class, 'id_aspek', 'id');
+    }
+
+    public function pm_kriteria_nilai()
+    {
+        return $this->hasMany(Nilai_Kriteria::class, 'id_kriteria');
     }
 }

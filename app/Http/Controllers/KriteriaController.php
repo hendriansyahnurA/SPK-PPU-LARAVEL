@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aspek;
 use App\Models\Kriteria;
+use App\Models\label_nilai;
 use App\Models\Nilai_Kriteria;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,9 @@ class KriteriaController extends Controller
 
         $aspek = Aspek::select('id', 'aspek_penilaian')->orderBy('id', 'desc')->paginate(10);
 
-        $nilai_kriteria = Nilai_Kriteria::select('id', 'nilai')->orderBy('id', 'desc')->paginate(10);
+        $label_nilai = label_nilai::select('id', 'nilai')->orderBy('id', 'desc')->paginate(10);
 
-        return view("admin.Dashboard.DataKriteria", compact("search", "kriteria", 'aspek', 'nilai_kriteria'));
+        return view("admin.Dashboard.DataKriteria", compact("search", "kriteria", 'aspek', 'label_nilai'));
     }
 
     public function store(Request $request)
@@ -28,7 +29,7 @@ class KriteriaController extends Controller
         $validatedData = $request->validate(
             [
                 "id_aspek" => "required|exists:aspek,id",
-                'id_nilai' => 'required|exists:pm_kriteria_nilai,id',
+                'id_nilai' => 'required|exists:label_nilai,id',
                 "kriteria" => "required",
                 "type" => "required",
             ],
@@ -49,7 +50,7 @@ class KriteriaController extends Controller
         $validatedData = $request->validate(
             [
                 "id_aspek" => "required|exists:aspek,id",
-                "id_nilai" => "required|exists:pm_kriteria_nilai,id",
+                "id_nilai" => "required|exists:label_nilai,id",
                 "kriteria" => "required",
                 "type" => "required",
             ],
