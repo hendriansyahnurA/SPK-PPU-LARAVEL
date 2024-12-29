@@ -18,6 +18,8 @@ class HasilAkhirController extends Controller
         $nilai_kriteria = Nilai_Kriteria::with('kriteria')->get();
         $peserta = Peserta::with('sample')->get();
         $nilai = label_nilai::all();
-        return view("admin.Dashboard.HasilPerhitungan", compact("nilai_kriteria", "nilai", "peserta", "aspek"));
+        $bobot = pm_bobot::all();
+        $kriteria = Kriteria::select('type')->get();
+        return view("admin.Dashboard.HasilPerhitungan", compact("nilai_kriteria", "nilai", "peserta", "aspek", 'bobot', 'kriteria'));
     }
 }

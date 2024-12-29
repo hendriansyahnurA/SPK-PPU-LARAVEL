@@ -123,7 +123,7 @@
 
     <!-- Tambahkan Navigasi Pagination -->
     <div class="d-flex justify-content-center">
-        {{ $aspek->links('pagination::bootstrap-4') }}
+        {{ $table_aspek->links('pagination::bootstrap-4') }}
     </div>
 
 
