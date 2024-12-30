@@ -17,4 +17,8 @@ class Sample extends Model
     {
         return $this->belongsTo(Nilai_Kriteria::class, 'id_faktor_nilai', 'id');
     }
+    public function alternatif()
+    {
+        return $this->belongsTo(Peserta::class, 'id_alternatif', 'id');
+    }
 }

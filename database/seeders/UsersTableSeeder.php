@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Regular User',
             'username' => 'evaluator',
             'password' => bcrypt('password'), // Ganti 'password' dengan password yang diinginkan
-            'role' => 'user',
+            'role' => 'evaluator',
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),

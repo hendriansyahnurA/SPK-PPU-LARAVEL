@@ -46,7 +46,8 @@
                             class="form-control form-control-user" required>
                             <!-- Menampilkan role saat ini (yang dari database) sebagai pilihan default -->
                             <option value="admin" {{ $p->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="user" {{ $p->role === 'user' ? 'selected' : '' }}>User</option>
+                            <option value="evaluator" {{ $p->role === 'evaluator' ? 'selected' : '' }}>Evaluator
+                            </option>
                         </select>
                         @error('role')
                             <span class="text-danger">{{ $message }}</span>

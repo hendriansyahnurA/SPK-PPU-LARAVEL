@@ -13,9 +13,9 @@
             </button>
         </div>
         <div class="card-body">
-            {{-- <form method="GET" action="{{ route('admin.subNilai') }}" class="mb-3">
+            <form method="GET" action="{{ route('admin.subNilai') }}" class="mb-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="Cari berdasarkan nama"
+                    <input type="text" class="form-control" name="search" placeholder="Cari berdasarkan Kriteria"
                         value="{{ request()->input('search') }}">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">
@@ -23,7 +23,7 @@
                         </button>
                     </div>
                 </div>
-            </form> --}}
+            </form>
 
             <div class="table-responsive">
                 <div id="loading" style="display: none;">
@@ -64,23 +64,18 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <!-- Pagination -->
                     <div class="d-flex justify-content-center">
-                        {{-- {{ $aspek->links('vendor.pagination.bootstrap-4') }} --}}
+                        {{ $nilai_kriteria->links('pagination::bootstrap-4') }}
                     </div>
-                    {{-- @else --}}
-                    {{-- <p id="no-data">Tidak Ada Data Evaluator</p> --}}
-                    {{-- @endif --}}
                 </div>
             </div>
         </div>
 
         @include('components.modal-nilai-kriteria.create')
-        {{-- @include('components.modal-aspek.editAspek')
-        @include('components.modal-aspek.deleteAspek') --}}
+        @include('components.modal-nilai-kriteria.editKriteria')
+        @include('components.modal-nilai-kriteria.deleteKriteria')
         @push('scripts')
             @include('components.Sweetalert-loader.exampleModal')
-            {{-- @include('components.Sweetalert-loader.loaderTable') --}}
         @endpush
     </div>
 @endsection

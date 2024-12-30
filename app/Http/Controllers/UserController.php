@@ -27,7 +27,7 @@ class UserController extends Controller
                 'name' => 'required|string',
                 'username' => 'required|string|unique:users,username|max:255',
                 'password' => 'required|string|min:8',
-                'role' => 'required|in:admin,user',
+                'role' => 'required|in:admin,evaluator',
             ],
             [
                 'username.unique' => 'Username sudah digunakan, silakan coba Nim lain.',
@@ -54,7 +54,7 @@ class UserController extends Controller
                     Rule::unique('users')->ignore($id), // Mengecualikan username pengguna yang sedang diupdate
                 ],
                 'password' => 'nullable|string|min:8',
-                'role' => 'required|in:admin,user',
+                'role' => 'required|in:admin,evaluator',
             ],
             [
                 'username.unique' => 'Username sudah digunakan, silakan coba Nim lain.',

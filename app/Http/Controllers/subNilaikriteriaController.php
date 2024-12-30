@@ -12,19 +12,30 @@ class subNilaikriteriaController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $nilai_kriteria = Nilai_Kriteria::with('kriteria')->get();
+        $nilai_kriteria = Nilai_Kriteria::with('kriteria')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('kriteria', function ($q) use ($search) {
+                    $q->where('kriteria', 'LIKE', '%' . $search . '%');
+                });
+            })
+            ->paginate(5);
 
-        $kriteria = Kriteria::select('id', 'kriteria')->orderBy('id', 'desc')->paginate(10);
-        // $id_kriteria = Nilai_Kriteria::with('kriteria')->get();
-        $label_nilai = label_nilai::select('id', 'nama', 'nilai')->orderBy('id', 'desc')->paginate(10);
+        $kriteria = Kriteria::select('id', 'kriteria')->orderBy('id', 'desc')->get();
+        $label_nilai = label_nilai::select('id', 'nama', 'nilai')->orderBy('id', 'desc')->get();
 
         return view("admin.Dashboard.subNilaikriteria", compact("kriteria", 'label_nilai', 'nilai_kriteria'));
     }
 
     public function store(Request $request)
     {
-        $nilai_kriteria = Nilai_Kriteria::with('kriteria')->get();
-
+        $search = $request->input('search');
+        $nilai_kriteria = Nilai_Kriteria::with('kriteria')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('kriteria', function ($q) use ($search) {
+                    $q->where('kriteria', 'LIKE', '%' . $search . '%');
+                });
+            })
+            ->paginate(5);
         $kriteria = Kriteria::select('id', 'kriteria')->orderBy('id', 'desc')->paginate(10);
         $label_nilai = label_nilai::select('id', 'nama', 'nilai')->orderBy('id', 'desc')->paginate(10);
 
@@ -51,7 +62,35 @@ class subNilaikriteriaController extends Controller
             }
         }
 
-        // Redirect atau tampilkan view setelah data disimpan
-        return view('admin.Dashboard.subNilaikriteria', compact('kriteria', 'label_nilai', 'nilai_kriteria'));
+        return redirect()->route("admin.subNilai", compact('kriteria', 'label_nilai', 'nilai_kriteria'))->with("success", "Data Kriteria Berhasil Ditambahkan");
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate(
+            [
+                "id_kriteria" => "required|exists:kriteria,id",
+                "nama" => "required",
+                "nilai" => "required",
+            ],
+            [
+
+                "id_aspek" => "Data Dari Aspek Tidak Sesuai",
+                "id_nilai" => "Target Dari nilai Tidak Sesuai",
+                "kriteria" => "Data Harus Di isi Terlebih Dahulu ",
+                "type" => "Data Harus Di isi Terlebih Dahulu ",
+            ]
+        );
+
+        $kriteria = Nilai_Kriteria::findOrFail($id);
+        $kriteria->update($validatedData);
+        return redirect()->route("admin.subNilai")->with("success", "Data Kriteria Berhasil Diperbarui");
+    }
+
+    public function destroy($id)
+    {
+        $kriteria = Nilai_Kriteria::findOrFail($id);
+        $kriteria->delete();
+        return redirect()->route("admin.subNilai")->with("success", "Data Kriteria Berhasil Dihapus");
     }
 }

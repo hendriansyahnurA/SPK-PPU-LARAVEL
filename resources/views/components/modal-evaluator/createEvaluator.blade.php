@@ -38,7 +38,7 @@
                         <label for="exampleRole">Role</label>
                         <select name="role" id="exampleRole" class="form-control form-control-user" id="exampleRole"
                             required>
-                            <option value="user">User</option>
+                            <option value="evaluator">Evaluator</option>
                             <option value="admin">Admin</option>
                         </select>
                         @error('role')

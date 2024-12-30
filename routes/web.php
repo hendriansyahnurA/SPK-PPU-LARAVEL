@@ -71,14 +71,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/subNilai/destroy/{id}', [subNilaikriteriaController::class, 'destroy'])->name('admin.subNilai.destroy');
     // Sub Nilai
 
-    // Nilai Kriteria
-    Route::get('/admin/nilai', [NilaiKriteriaController::class, 'index'])->name('admin.nilai');
-    Route::post('/admin/nilai/creted', [NilaiKriteriaController::class, 'store'])->name('admin.nilai.store');
-    Route::put('/admin/nilai/update/{id}', [NilaiKriteriaController::class, 'update'])->name('admin.nilai.update');
-    Route::delete('/admin/nilai/destroy/{id}', [NilaiKriteriaController::class, 'destroy'])->name('admin.nilai.destroy');
-    // Nilai Kriteria
-
-
     // Penilaian / klasifikasi
     Route::get('/admin/klasifikasi', [KlasifikasiController::class, 'index'])->name('admin.klasifikasi');
     Route::post('/admin/klasifikasi/creted', [KlasifikasiController::class, 'store'])->name('admin.klasifikasi.store');

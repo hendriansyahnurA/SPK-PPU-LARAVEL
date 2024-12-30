@@ -54,6 +54,6 @@ class KlasifikasiController extends Controller
             }
         }
 
-        return view('admin.Dashboard.KlasifikasiNilai', compact('aspek', 'nilai_kriteria', 'peserta'));
+        return redirect()->route("admin.klasifikasi", compact('aspek', 'nilai_kriteria', 'peserta'))->with("success", "Berhasil Mengklasifikasi Nilai");
     }
 }
