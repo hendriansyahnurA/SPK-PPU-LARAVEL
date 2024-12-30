@@ -63,7 +63,26 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('template/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('template/js/demo/chart-pie-demo.js') }}"></script>
+    <script>
+        document.getElementById('delete-sample-button').addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
 
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Tindakan ini akan menghapus semua sampel!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-sample-form').submit(); // Kirim form jika dikonfirmasi
+                }
+            });
+        });
+    </script>
     @stack('scripts') <!-- For additional scripts if needed -->
 </body>
 

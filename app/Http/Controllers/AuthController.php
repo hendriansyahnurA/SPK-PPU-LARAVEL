@@ -46,6 +46,7 @@ class AuthController extends Controller
 
     public function index()
     {
-        return view('admin.Dashboard.page');
+        $evaluatorCount = User::where('role', 'Evaluator')->count();
+        return view('admin.Dashboard.page', compact('evaluatorCount'));
     }
 }

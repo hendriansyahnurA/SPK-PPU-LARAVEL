@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Klasifikasi Nilai')
 @section('header-title', 'Klasifikasi Nilai')
 
 @section('content')
-    <form class="form-kecerdasan" method="post" action="{{ route('admin.klasifikasi.store') }}" role="form">
+    <form class="form-kecerdasan" method="post" action="{{ route('users.klasifikasi.store') }}" role="form">
         @csrf
         <div class="shadow-sm">
             <div class="card-header">
@@ -59,11 +59,15 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-success mt-2 mb-5" type="submit">Simpan</button>
+        <div class="d-flex mt-2 mb-5">
+            <div class="ms-3">
+                <button class="btn btn-success" type="submit">Simpan</button>
+            </div>
+        </div>
     </form>
 
     <div class="mb-2">
-        <form id="delete-sample-form" action="{{ route('admin.klasifikasi.destroy') }}" method="POST">
+        <form id="delete-sample-form" action="{{ route('users.klasifikasi.destroy') }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="button" class="btn btn-danger" id="delete-sample-button">Hapus Semua Nilai</button>

@@ -9,6 +9,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\NilaiKriteriaController;
 use App\Http\Controllers\subNilaikriteriaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\users\evaluatorController;
 use App\Http\Controllers\users\klasifikasiController as UsersKlasifikasiController;
 use Illuminate\Support\Facades\Route;
 
@@ -74,19 +75,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Penilaian / klasifikasi
     Route::get('/admin/klasifikasi', [KlasifikasiController::class, 'index'])->name('admin.klasifikasi');
     Route::post('/admin/klasifikasi/creted', [KlasifikasiController::class, 'store'])->name('admin.klasifikasi.store');
-    Route::put('/admin/klasifikasi/update/{id}', [KlasifikasiController::class, 'update'])->name('admin.klasifikasi.update');
-    Route::delete('/admin/klasifikasi/destroy/{id}', [KlasifikasiController::class, 'destroy'])->name('admin.klasifikasi.destroy');
+    Route::delete('/admin/klasifikasi/destroy', [KlasifikasiController::class, 'destroy'])->name('admin.klasifikasi.destroy');
     // Penilaian / klasifikasi
 
     // Hasil Akhir Penilaian
     Route::get('/admin/hasil', [HasilAkhirController::class, 'index'])->name('admin.hasil');
-    Route::post('/admin/klasifikasi/creted', [KlasifikasiController::class, 'store'])->name('admin.klasifikasi.store');
-    Route::put('/admin/klasifikasi/update/{id}', [KlasifikasiController::class, 'update'])->name('admin.klasifikasi.update');
-    Route::delete('/admin/klasifikasi/destroy/{id}', [KlasifikasiController::class, 'destroy'])->name('admin.klasifikasi.destroy');
     // Hasil Akhir Penilaian
 });
 
-Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/users/dashboard', [UsersKlasifikasiController::class, 'evaluator'])->name('users.dashboard');
+Route::middleware(['auth', 'role:evaluator'])->group(function () {
+    Route::get('/users/dashboard', [evaluatorController::class, 'index'])->name('users.dashboard');
+    Route::get('/users/hasil', [evaluatorController::class, 'showHasil'])->name('users.hasilEvaluator');
+
     Route::get('/users/klasifikasi', [UsersKlasifikasiController::class, 'index'])->name('users.klasifikasi');
+    Route::post('/users/klasifikasi/creted', [UsersKlasifikasiController::class, 'store'])->name('users.klasifikasi.store');
+    Route::delete('/users/klasifikasi/destroy', [UsersKlasifikasiController::class, 'destroy'])->name('users.klasifikasi.destroy');
 });

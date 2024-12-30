@@ -56,4 +56,10 @@ class KlasifikasiController extends Controller
 
         return redirect()->route("admin.klasifikasi", compact('aspek', 'nilai_kriteria', 'peserta'))->with("success", "Berhasil Mengklasifikasi Nilai");
     }
+
+    public function destroy()
+    {
+        Sample::truncate();
+        return redirect()->route("admin.klasifikasi")->with("success", "Berhasil Mengahapus Semua Nilai");
+    }
 }
