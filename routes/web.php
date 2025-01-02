@@ -56,6 +56,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/aspek/creted', [AspekController::class, 'store'])->name('admin.aspek.store');
     Route::put('/admin/aspek/update/{id}', [AspekController::class, 'update'])->name('admin.aspek.update');
     Route::delete('/admin/aspek/destroy/{id}', [AspekController::class, 'destroy'])->name('admin.aspek.destroy');
+    Route::get('/admin/sampah', [AspekController::class, 'sampah'])->name('admin.sampah');
+    Route::get('/admin/restore/{id}', [AspekController::class, 'restore'])->name('admin.kembalikan');
+    Route::get('/admin/permanen/{id}', [AspekController::class, 'hapusPermanen'])->name('admin.hapusPermanen');
     // Data Aspek
 
     // Kriteria

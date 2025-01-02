@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aspek;
+use App\Models\Kriteria;
+use App\Models\Peserta;
 use Illuminate\Http\Request;
 
 class AspekController extends Controller
@@ -66,5 +68,92 @@ class AspekController extends Controller
         $aspek = Aspek::findOrFail($id);
         $aspek->delete();
         return redirect()->route('admin.aspek')->with('success', 'Data Aspek Berhasil Dihapus');
+    }
+
+    public function sampah()
+    {
+        $aspek = Aspek::onlyTrashed()->get()->map(function ($item) {
+            $item->type = 'aspek';
+            return $item;
+        });
+
+        $peserta = Peserta::onlyTrashed()->get()->map(function ($item) {
+            $item->type = 'peserta';
+            return $item;
+        });
+        $kriteria = Kriteria::onlyTrashed()->get()->map(function ($item) {
+            $item->type = 'kriteria';
+            return $item;
+        });
+
+        $deletedItems = collect()
+            ->concat($aspek)
+            ->concat($peserta)
+            ->concat($kriteria);
+
+        return view('admin.Dashboard.BarusajaDihapus', compact('deletedItems'));
+    }
+
+    public function restore($id)
+    {
+        $restored = false;
+
+        $aspek = Aspek::onlyTrashed()->where('id', $id)->first();
+        if ($aspek) {
+            $aspek->restore();
+            $restored = true;
+        }
+
+        $peserta = Peserta::onlyTrashed()->where('id', $id)->first();
+        if ($peserta) {
+            $peserta->restore();
+            $restored = true;
+        }
+
+        $kriteria = Kriteria::onlyTrashed()->where('id', $id)->first();
+        if ($kriteria) {
+            $kriteria->restore();
+            $restored = true;
+        }
+
+        // Kembalikan respons
+        if ($restored) {
+            return redirect()->route('admin.sampah')->with('success', 'Item berhasil direstore.');
+        }
+
+        return redirect()->back()->with('error', 'Item tidak ditemukan untuk direstore.');
+    }
+
+    public function hapusPermanen($id)
+    {
+        $deleted = false;
+
+        // Coba hapus dari model Aspek
+        $aspek = Aspek::onlyTrashed()->where('id', $id)->first();
+        if ($aspek) {
+            $aspek->forceDelete();
+            $deleted = true;
+        }
+
+        // Coba hapus dari model Peserta
+        $peserta = Peserta::onlyTrashed()->where('id', $id)->first();
+        if ($peserta) {
+            $peserta->forceDelete();
+            $deleted = true;
+        }
+
+        // Coba hapus dari model Kriteria
+        $kriteria = Kriteria::onlyTrashed()->where('id', $id)->first();
+        if ($kriteria) {
+            $kriteria->forceDelete();
+            $deleted = true;
+        }
+
+        // Redirect dengan pesan
+        if ($deleted) {
+            return redirect()->route('admin.sampah')->with('success', 'Data berhasil dihapus permanen.');
+        }
+
+        return redirect()->back()->with('error', 'Data tidak ditemukan untuk dihapus permanen.');
     }
 }

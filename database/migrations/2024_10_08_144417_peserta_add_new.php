@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create("peserta", function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->string("nama");
+            $table->string("jenis_kelamin");
             $table->string("nim")->unique();
             $table->string("prodi");
             $table->string("semester");

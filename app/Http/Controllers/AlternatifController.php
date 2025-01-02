@@ -29,6 +29,7 @@ class AlternatifController extends Controller
             [
                 "nama" => "required",
                 "nim" => "required|unique:peserta,nim",
+                "jenis_kelamin" => "required",
                 "prodi" => "required",
                 "semester" => "required",
                 'ipk' => 'required|numeric|between:0,4',
@@ -51,6 +52,7 @@ class AlternatifController extends Controller
             [
                 "nama" => "required",
                 "nim" => "required",
+                "jenis_kelamin" => "required",
                 "prodi" => "required",
                 "semester" => "required",
                 'ipk' => 'required|numeric|between:0,4',

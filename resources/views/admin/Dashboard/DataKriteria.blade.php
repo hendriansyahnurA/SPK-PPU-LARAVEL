@@ -71,7 +71,7 @@
                         </table>
                         <!-- Pagination -->
                         <div class="d-flex justify-content-center">
-                            {{ $aspek->links('vendor.pagination.bootstrap-4') }}
+                            {{ $kriteria->links('vendor.pagination.bootstrap-4') }}
                         </div>
                     @else
                         {{-- <p id="no-data">Tidak Ada Data Evaluator</p> --}}

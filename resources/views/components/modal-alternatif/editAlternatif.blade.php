@@ -23,6 +23,18 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputJeniskelamin{{ $p->id }}">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" class="form-control form-control-user"
+                            id="exampleInputJeniskelamin{{ $p->id }}">
+                            <option value="" disabled selected>Jenis Kelamin</option>
+                            <option value="laki-laki{{ $p->jenis_kelamin }}">Laki-Laki</option>
+                            <option value="Perempuan{{ $p->jenis_kelamin }}">Perempuan</option>
+                        </select>
+                        @error('username')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputNim{{ $p->id }}">Nim</label>
                         <input type="number" class="form-control form-control-user" name="nim"
                             id="exampleInputNim{{ $p->id }}" value="{{ $p->nim }}" placeholder="Nim">

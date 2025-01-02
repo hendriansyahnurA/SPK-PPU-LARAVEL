@@ -30,6 +30,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>Jenis Kelamin</th>
                                 <th>NIM</th>
                                 <th>Prodi</th>
                                 <th>Semester</th>
@@ -42,6 +43,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $p->nama }}</td>
+                                    <td>{{ $p->jenis_kelamin }}</td>
                                     <td>{{ $p->nim }}</td>
                                     <td>{{ $p->prodi }}</td>
                                     <td>{{ $p->semester }}</td>

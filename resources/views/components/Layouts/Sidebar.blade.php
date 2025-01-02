@@ -76,5 +76,10 @@
             <i class="fas fa-fw fa-solid fa-box-tissue"></i>
             <span>Hasil Akhir</span></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ '/admin/sampah' }}">
+            <i class="fas fa-fw fa-solid fa-trash"></i>
+            <span>Baru Saja Dihapus</span></a>
+    </li>
     <hr class="sidebar-divider">
 </ul>
