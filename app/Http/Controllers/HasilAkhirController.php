@@ -14,7 +14,7 @@ class HasilAkhirController extends Controller
 {
     public function index(Request $request)
     {
-        $aspek = Aspek::with('kriteria')->paginate(1);
+        $aspek = Aspek::with('kriteria')->get();
         $nilai_kriteria = Nilai_Kriteria::with('kriteria')->get();
         $peserta = Peserta::with('sample')->get();
         $nilai = label_nilai::all();
@@ -25,6 +25,8 @@ class HasilAkhirController extends Controller
         $hasilTotal = [];
 
         foreach ($peserta as $row_peserta) {
+            $totalNilaiPeserta = 0; // Variabel untuk menyimpan total nilai dari semua aspek untuk peserta ini
+
             foreach ($aspek as $row_aspek) {
                 $totalBobotCore = 0;
                 $jumlahKriteriaCore = 0;
@@ -58,19 +60,23 @@ class HasilAkhirController extends Controller
                     }
                 }
 
-                // Menghitung rata-rata dan total
+                // Menghitung rata-rata dan total untuk aspek ini
                 $rataRataCore = $jumlahKriteriaCore > 0 ? $totalBobotCore / $jumlahKriteriaCore : 0;
                 $rataRataSecondary = $jumlahKriteriaSecondary > 0 ? $totalBobotSecondary / $jumlahKriteriaSecondary : 0;
 
-                $totalNilai = $coreFaktor * $rataRataCore + $secondaryFaktor * $rataRataSecondary;
+                $totalNilaiAspek = $coreFaktor * $rataRataCore + $secondaryFaktor * $rataRataSecondary;
 
-                // Simpan hasil total
-                $hasilTotal[] = [
-                    'peserta' => $row_peserta,
-                    'total_nilai' => $totalNilai
-                ];
+                // Tambahkan nilai aspek ini ke total nilai peserta
+                $totalNilaiPeserta += $totalNilaiAspek;
             }
+
+            // Simpan total nilai semua aspek untuk peserta ini
+            $hasilTotal[] = [
+                'peserta' => $row_peserta,
+                'total_nilai' => $totalNilaiPeserta
+            ];
         }
+
 
         // Urutkan berdasarkan total_nilai
         usort($hasilTotal, function ($a, $b) {

@@ -15,7 +15,7 @@ class KriteriaController extends Controller
         $search = $request->input("search");
         $kriteria = Kriteria::when($search, function ($query) use ($search) {
             $query->where("kriteria", "like", "%{$search}%");
-        })->paginate(10);
+        })->get();
 
         $aspek = Aspek::select('id', 'aspek_penilaian')->orderBy('id', 'desc')->paginate(10);
 

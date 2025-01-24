@@ -70,9 +70,9 @@
                             </tbody>
                         </table>
                         <!-- Pagination -->
-                        <div class="d-flex justify-content-center">
+                        {{-- <div class="d-flex justify-content-center">
                             {{ $kriteria->links('vendor.pagination.bootstrap-4') }}
-                        </div>
+                        </div> --}}
                     @else
                         {{-- <p id="no-data">Tidak Ada Data Evaluator</p> --}}
                     @endif

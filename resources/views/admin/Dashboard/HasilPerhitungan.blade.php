@@ -272,34 +272,36 @@
                             </tr>
                         </tfoot>
                     </table>
-                    <div class="card-header bg-warning text-white">
-                        <h5 class="mb-0"><strong>Tabel Peringkat :</strong></h5>
-                    </div>
-                    <table class="table table-bordered table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th class="align-middle">Peringkat</th>
-                                <th class="align-middle">Nama Penerima</th>
-                                <th class="align-middle">Total Nilai</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($hasilTotal as $data)
-                                <tr>
-                                    <td class="text-center">{{ $data['peringkat'] }}</td>
-                                    <td>{{ $data['peserta']->nama }}</td>
-                                    <td class="text-center">{{ number_format($data['total_nilai'], 2) }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+
                 </div>
             </div>
         </div>
     @endforeach
-
-    <div class="d-flex justify-content-center">
-        {{ $aspek->links('pagination::bootstrap-4') }}
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><strong>Tabel Peringkat :</strong></h5>
+                </div>
+                <table class="table table-bordered table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th class="align-middle">Peringkat</th>
+                            <th class="align-middle">Nama Penerima</th>
+                            <th class="align-middle">Total Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($hasilTotal as $data)
+                            <tr>
+                                <td class="text-center">{{ $data['peringkat'] }}</td>
+                                <td>{{ $data['peserta']->nama }}</td>
+                                <td class="text-center">{{ number_format($data['total_nilai'], 2) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
 @endsection
