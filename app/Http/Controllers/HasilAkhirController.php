@@ -21,11 +21,11 @@ class HasilAkhirController extends Controller
         $bobot = pm_bobot::all();
         $kriteria = Kriteria::select('type')->get();
 
-        // Menyimpan hasil total per peserta
-        $hasilTotal = [];
+        $hasilTotalLaki = [];
+        $hasilTotalPerempuan = [];
 
         foreach ($peserta as $row_peserta) {
-            $totalNilaiPeserta = 0; // Variabel untuk menyimpan total nilai dari semua aspek untuk peserta ini
+            $totalNilaiPeserta = 0;
 
             foreach ($aspek as $row_aspek) {
                 $totalBobotCore = 0;
@@ -60,34 +60,46 @@ class HasilAkhirController extends Controller
                     }
                 }
 
-                // Menghitung rata-rata dan total untuk aspek ini
                 $rataRataCore = $jumlahKriteriaCore > 0 ? $totalBobotCore / $jumlahKriteriaCore : 0;
                 $rataRataSecondary = $jumlahKriteriaSecondary > 0 ? $totalBobotSecondary / $jumlahKriteriaSecondary : 0;
-
                 $totalNilaiAspek = $coreFaktor * $rataRataCore + $secondaryFaktor * $rataRataSecondary;
-
-                // Tambahkan nilai aspek ini ke total nilai peserta
                 $totalNilaiPeserta += $totalNilaiAspek;
             }
 
-            // Simpan total nilai semua aspek untuk peserta ini
-            $hasilTotal[] = [
-                'peserta' => $row_peserta,
-                'total_nilai' => $totalNilaiPeserta
-            ];
+            // Memisahkan berdasarkan jenis kelamin
+            if ($row_peserta->jenis_kelamin === 'laki-laki') {
+                $hasilTotalLaki[] = [
+                    'peserta' => $row_peserta,
+                    'total_nilai' => $totalNilaiPeserta
+                ];
+            } elseif ($row_peserta->jenis_kelamin === 'Perempuan') {
+                $hasilTotalPerempuan[] = [
+                    'peserta' => $row_peserta,
+                    'total_nilai' => $totalNilaiPeserta
+                ];
+            }
         }
 
-
-        // Urutkan berdasarkan total_nilai
-        usort($hasilTotal, function ($a, $b) {
-            return $b['total_nilai'] <=> $a['total_nilai']; // Urutkan secara menurun
+        // Urutkan berdasarkan total nilai (dari tertinggi ke terendah)
+        usort($hasilTotalLaki, function ($a, $b) {
+            return $b['total_nilai'] <=> $a['total_nilai'];
         });
 
-        // Berikan peringkat
-        foreach ($hasilTotal as $index => &$data) {
-            $data['peringkat'] = $index + 1; // Peringkat dimulai dari 1
+        usort($hasilTotalPerempuan, function ($a, $b) {
+            return $b['total_nilai'] <=> $a['total_nilai'];
+        });
+
+        // Berikan peringkat secara terpisah
+        foreach ($hasilTotalLaki as $index => &$data) {
+            $data['peringkat'] = $index + 1;
         }
 
-        return view("admin.Dashboard.HasilPerhitungan", compact("nilai_kriteria", "nilai", "peserta", "aspek", 'bobot', 'kriteria', 'hasilTotal'));
+        foreach ($hasilTotalPerempuan as $index => &$data) {
+            $data['peringkat'] = $index + 1;
+        }
+
+        // dd($hasilTotalLaki);
+
+        return view("admin.Dashboard.HasilPerhitungan", compact("nilai_kriteria", "nilai", "peserta", "aspek", 'bobot', 'kriteria', 'hasilTotalLaki', 'hasilTotalPerempuan'));
     }
 }
