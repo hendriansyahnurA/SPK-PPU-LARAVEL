@@ -27,8 +27,10 @@
                         <select name="jenis_kelamin" class="form-control form-control-user"
                             id="exampleInputJeniskelamin{{ $p->id }}">
                             <option value="" disabled selected>Jenis Kelamin</option>
-                            <option value="laki-laki{{ $p->jenis_kelamin }}">Laki-Laki</option>
-                            <option value="Perempuan{{ $p->jenis_kelamin }}">Perempuan</option>
+                            <option value="laki-laki" {{ $p->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-Laki
+                            </option>
+                            <option value="Perempuan" {{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                Perempuan</option>
                         </select>
                         @error('username')
                             <span class="text-danger">{{ $message }}</span>
